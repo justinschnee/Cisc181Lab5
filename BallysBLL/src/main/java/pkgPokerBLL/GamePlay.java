@@ -31,6 +31,7 @@ public class GamePlay implements Serializable {
 	private Player PlayerNextToAct = null;
 	private eDrawCount eDrawCountLast;
 	private eGameState eGameState;
+	private int newMove = 1;
 
 	public GamePlay(Rule rle, UUID GameDealerID) {
 		this.setGameID(UUID.randomUUID());
@@ -189,6 +190,33 @@ public class GamePlay implements Serializable {
 
 	public void seteDrawCountLast(eDrawCount eDrawCountLast) {
 		this.eDrawCountLast = eDrawCountLast;
+	}
+	
+	public void DealByRule() {
+		
+		int[] DrawOrder = GamePlay.GetOrder(newMove);
+		eDrawCountLast = eDrawCount.geteDrawCount(eDrawCountLast.getDrawNo() + 1);
+		CardDraw card = this.rle.GetDrawCard(eDrawCountLast);
+
+		
+		for (int i = 0; i < card.getCardCount().getCardCount(); i++) {
+			
+			if (card.getCardDestination() == eCardDestination.Player) {
+				
+				for (int drawPlayer : DrawOrder) {
+					
+					Player player = getPlayerByPosition(drawPlayer);
+					
+					if (player != null) {
+						drawCard(player, card.getCardDestination());
+					}
+				}
+			} else if (card.getCardDestination() == eCardDestination.Community) {
+				
+				drawCard(PlayerCommon, card.getCardDestination());
+			}
+
+		}
 	}
 
 	public static int[] GetOrder(int iStartPosition) {

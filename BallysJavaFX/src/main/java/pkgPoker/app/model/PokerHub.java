@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 import netgame.common.Hub;
 import pkgPokerBLL.Action;
@@ -74,6 +76,30 @@ public class PokerHub extends Hub {
 				HubGamePlay = new GamePlay(rle, UUID.randomUUID());			
 
 				HubGamePlay.setGameDeck(new Deck(rle.GetNumberOfJokers()));
+				
+				if(actPlayer.getPlayerName() == null)
+				{
+	
+					ArrayList<Player> pList = new ArrayList<Player>();
+					pList.addAll(HubPokerTable.getHmPlayer().values());
+					
+					Random rand = new Random();
+					HubGamePlay = new GamePlay(rle, pList.get(rand.nextInt(pList.size()) + 1).getPlayerID());
+					
+				}
+				else
+				{
+					HubGamePlay = new GamePlay(rle, actPlayer.getPlayerID());
+				}
+				
+				HubGamePlay.setGamePlayers(HubPokerTable.getHmPlayer());
+				
+				int jokers = rle.GetNumberOfJokers();
+				ArrayList<Card> wilds = rle.GetWildCards();
+				
+				int[] playerOrder = GamePlay.GetOrder(actPlayer.getiPlayerPosition());
+				HubGamePlay.setiActOrder(playerOrder);
+				
 
 				
 				//TODO Lab #5 - If neither player has 'the button', pick a random player
@@ -92,6 +118,8 @@ public class PokerHub extends Hub {
 				//TODO Lab #5 -	Draw card(s) for each player in the game.
 				//TODO Lab #5 -	Make sure to set the correct visiblity
 				//TODO Lab #5 -	Make sure to account for community cards
+				
+				HubGamePlay.DealByRule();
 
 				//TODO Lab #5 -	Check to see if the game is over
 				if(HubGamePlay.geteDrawCountLast().getDrawNo()==HubGamePlay.getRule().GetMaxDrawCount()){
