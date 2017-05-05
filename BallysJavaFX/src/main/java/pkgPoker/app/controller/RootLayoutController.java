@@ -36,7 +36,7 @@ public class RootLayoutController implements Initializable {
 
 	// Reference to the main application
 	private MainApp mainApp;
-
+ 
 	@FXML
 	private MenuBar mb;
 
@@ -117,53 +117,29 @@ public class RootLayoutController implements Initializable {
 		//	Group them together with a Toggle Group
 		//	Write a method to return which is selected.. .check out getRuleName()
 
+		String strRuleID = null;
+		for (Menu m: mb.getMenus())
+		{
+			if (m.getText() == "Pick Game")
+			{
+				for (MenuItem mi: m.getItems())
+				{
+					if (mi.getClass().equals(RadioMenuItem.class))
+					{
+						RadioMenuItem rmi = (RadioMenuItem)mi;
+						if (rmi.isSelected() == true)
+						{
+							strRuleID = rmi.getId();
+							break;
+						}
+					}
+				}
+			}
+		}
+				
+		
 	}
-    
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	public void setMainApp(MainApp mainApp) {

@@ -68,7 +68,13 @@ public class PokerHub extends Hub {
 				break;
 			case StartGame:
 				// Get the rule from the Action object.
+				
 				Rule rle = new Rule(act.geteGame());
+				
+				HubGamePlay = new GamePlay(rle, UUID.randomUUID());			
+
+				HubGamePlay.setGameDeck(new Deck(rle.GetNumberOfJokers()));
+
 				
 				//TODO Lab #5 - If neither player has 'the button', pick a random player
 				//		and assign the button.				
@@ -76,7 +82,7 @@ public class PokerHub extends Hub {
 				//TODO Lab #5 - Start the new instance of GamePlay
 								
 				// Add Players to Game
-				
+				HubGamePlay.addPlayerToGame(actPlayer);
 				// Set the order of players
 				
 
@@ -88,7 +94,9 @@ public class PokerHub extends Hub {
 				//TODO Lab #5 -	Make sure to account for community cards
 
 				//TODO Lab #5 -	Check to see if the game is over
-				HubGamePlay.isGameOver();
+				if(HubGamePlay.geteDrawCountLast().getDrawNo()==HubGamePlay.getRule().GetMaxDrawCount()){
+					HubGamePlay.isGameOver();
+				}
 				
 				resetOutput();
 				//	Send the state of the gameplay back to the clients

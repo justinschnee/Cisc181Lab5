@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane prefHeight="650.0" prefWidth="850.0"  xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkgPoker.app.controller.RootLayoutController">
+<BorderPane prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pkgPoker.app.controller.RootLayoutController">
    <top>
       <MenuBar fx:id="mb" prefHeight="0.0" prefWidth="1064.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+          <Menu mnemonicParsing="false" text="Help" />
+            <Menu mnemonicParsing="false" text="Rules">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#tglBet" text="No Limit" />
+                  <MenuItem mnemonicParsing="false" onAction="#tglBet" text="Pot Limit" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>
